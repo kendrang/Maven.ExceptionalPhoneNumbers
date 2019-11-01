@@ -1,6 +1,7 @@
 package com.zipcodewilmington.phone;
 
 import com.zipcodewilmington.exceptions.InvalidPhoneNumberFormatException;
+import com.zipcodewilmington.tools.RandomNumberFactory;
 
 import java.util.logging.Logger;
 
@@ -20,14 +21,23 @@ public final class PhoneNumberFactory {
      * @return array of randomly generated PhoneNumber objects
      */ //TODO - Implement logic
     public static PhoneNumber[] createRandomPhoneNumberArray(int phoneNumberCount) {
-        return null;
+        PhoneNumber[] phoneBook = new PhoneNumber[phoneNumberCount];
+        for (int i=0 ; i < phoneNumberCount; i++){
+           phoneBook[i]= createRandomPhoneNumber();
+        }
+        return phoneBook;
+
     }
 
     /**
      * @return an instance of PhoneNumber with randomly generated phone number value
      */ //TODO - Implement logic
     public static PhoneNumber createRandomPhoneNumber() {
-        return createPhoneNumberSafely(-1, -1, -1);
+
+        return createPhoneNumberSafely(
+                RandomNumberFactory.createInteger(100,999),
+                RandomNumberFactory.createInteger(100,999),
+                RandomNumberFactory.createInteger(1000,9999));
     }
 
 
@@ -39,7 +49,7 @@ public final class PhoneNumberFactory {
      */ //TODO - if input is valid, return respective PhoneNumber object, else return null
     public static PhoneNumber createPhoneNumberSafely(int areaCode, int centralOfficeCode, int phoneLineCode) {
         try{
-            return createPhoneNumber("("+ areaCode + ")" + " -" + centralOfficeCode + "-" + phoneLineCode);
+            return createPhoneNumber("("+ areaCode + ")" + "-" + centralOfficeCode + "-" + phoneLineCode);
         }
         catch (InvalidPhoneNumberFormatException badNumber){
             return null;
@@ -53,7 +63,7 @@ public final class PhoneNumberFactory {
      */ // TODO - Add throws statement to method signature
     public static PhoneNumber createPhoneNumber(String phoneNumberString) throws InvalidPhoneNumberFormatException {
 
-
-        return null;
+        PhoneNumber newNumber = new PhoneNumber(phoneNumberString);
+        return newNumber;
     }
 }
